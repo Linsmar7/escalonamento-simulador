@@ -1,0 +1,15 @@
+.btn-iniciar {
+  margin-top: 50px !important;
+  background-color: #af5eff !important;
+  color: white !important;
+
+  &:disabled {
+    background-color: gray !important;
+    cursor: not-allowed !important;
+  }
+
+  &:hover {
+    background-color: #9429ff !important;
+    border-color: #af5eff !important;
+  }
+}
