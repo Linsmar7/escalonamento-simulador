@@ -21,6 +21,7 @@ function App() {
   const [numeroProcessos, setNumeroProcessos] = useState(0);
   const [quantum, setQuantum] = useState(0);
   const [sobrecarga, setSobrecarga] = useState(0);
+  const [memoriaLivre, setMemoriaLivre] = useState(0)
   const [algoritmo, setAlgoritmo] = useState<TipoAlgoritmo>(TipoAlgoritmo.fifo);
   const [btnDesativado, setBtnDesativado] = useState(true);
   const [processos, setProcessos] = useState<Processo[]>([]);
@@ -28,10 +29,10 @@ function App() {
   const [grafico, setGrafico] = useState(false);
   const [animado, setAnimado] = useState(false);
 
-  let memoria: any[] = [{numeroProcesso: "Vazio", maxPaginasMemoria: 50}]
+  // Colocar quanto precisa no vazio.
+  let memoria: any[] = [{numeroProcesso: "Vazio", paginasMemoria: memoriaLivre}]
   processos.map( e => memoryPush(e, memoria))
-
-  console.log(memoria)
+  let memoriaLivreObj = memoria.find((e) => e.numeroProcesso === "Vazio");
 
   useEffect(() => {
     const botaoDesativado =
@@ -112,6 +113,30 @@ function App() {
     </div>
   ) : (
     <div style={{ display: 'block', padding: '50px', border: '1px solid #c891ff', borderRadius: '5px', color: 'black' }}>
+      <TextField
+        type="number"
+        label="Quantidade de memoria livre"
+        value={memoriaLivre}
+        onChange={(e: any) => setMemoriaLivre(e.target.value)}
+        style={{ width: '100%' }}
+      />
+      <div>
+      {
+        !!memoriaLivreObj ?
+          <p>Memória livre: {memoriaLivreObj.paginasMemoria}</p> :
+          <p>Sem memória livre</p>
+      }
+
+      {memoria.map((e, index) => (
+        <div key={index}>
+          {
+            e.numeroProcesso !== "Vazio" ?
+              <p>Processo: {e.numeroProcesso}, Memória livre: {e.paginasMemoria}</p> :
+              ''
+          }
+        </div>
+      ))}
+      </div>
       <div>
         <Grid container spacing={1}>
           <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>

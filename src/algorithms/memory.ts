@@ -1,35 +1,35 @@
-export function memoryPush({ numeroProcesso, maxPaginasMemoria }: any, memoria: any[]) {
+export function memoryPush({ numeroProcesso, paginasMemoria }: any, memoria: any[]) {
   // Loop até que todas as páginas de memória sejam alocadas.
-  while (maxPaginasMemoria > 0) {
+  while (paginasMemoria > 0) {
     memoria.map((e) => {
       // Verifica se há páginas de memória disponíveis no bloco.
-      if (maxPaginasMemoria > 0) {
+      if (paginasMemoria > 0) {
         if (e.numeroProcesso == "Vazio") {
           // Se há espaço disponível, aloca as páginas de memória para o processo.
-          if (e.paginasMemoria > maxPaginasMemoria) {
-            e.paginasMemoria -= maxPaginasMemoria;
+          if (e.paginasMemoria > paginasMemoria) {
+            e.paginasMemoria -= paginasMemoria;
             if (memoria.indexOf(e) - 1 >= 0) {
               memoria.splice(memoria.indexOf(e), 0, {
                 numeroProcesso,
-                maxPaginasMemoria,
+                paginasMemoria,
               });
             } else {
-              memoria.unshift({ numeroProcesso, maxPaginasMemoria });
+              memoria.unshift({ numeroProcesso, paginasMemoria });
             }
-            maxPaginasMemoria = 0;
-          } else if (e.paginasMemoria == maxPaginasMemoria) {
+            paginasMemoria = 0;
+          } else if (e.paginasMemoria == paginasMemoria) {
             if (memoria.indexOf(e) - 1 >= 0) {
               memoria.splice(memoria.indexOf(e), 0, {
                 numeroProcesso,
-                maxPaginasMemoria,
+                paginasMemoria,
               });
             } else {
-              memoria.unshift({ numeroProcesso, maxPaginasMemoria });
+              memoria.unshift({ numeroProcesso, paginasMemoria });
             }
             memoria.splice(memoria.indexOf(e), 1);
-            maxPaginasMemoria = 0;
-          } else if (e.paginasMemoria < maxPaginasMemoria) {
-            maxPaginasMemoria -= e.paginasMemoria;
+            paginasMemoria = 0;
+          } else if (e.paginasMemoria < paginasMemoria) {
+            paginasMemoria -= e.paginasMemoria;
             if (memoria.indexOf(e) - 1 >= 0) {
               memoria.splice(memoria.indexOf(e), 0, {
                 numeroProcesso,
@@ -59,26 +59,26 @@ export function memoryPush({ numeroProcesso, maxPaginasMemoria }: any, memoria: 
     let e = memoria.find((x) => x.numeroProcesso == min);
 
     // Aloca as páginas de memória restantes para o processo com o número mais baixo.
-    if (maxPaginasMemoria > 0) {
-      if (e.paginasMemoria > maxPaginasMemoria) {
+    if (paginasMemoria > 0) {
+      if (e.paginasMemoria > paginasMemoria) {
         let liberada = e.paginasMemoria;
         memoria.splice(memoria.indexOf(e), 0, {
           numeroProcesso,
-          maxPaginasMemoria,
+          paginasMemoria,
         });
         memoria.splice(memoria.indexOf(e), 0, {
           numeroProcesso: "Vazio",
-          paginasMemoria: liberada - maxPaginasMemoria,
+          paginasMemoria: liberada - paginasMemoria,
         });
         memoria.splice(memoria.indexOf(e), 1);
-        maxPaginasMemoria = 0;
-      } else if (e.paginasMemoria == maxPaginasMemoria) {
+        paginasMemoria = 0;
+      } else if (e.paginasMemoria == paginasMemoria) {
         memoria.splice(memoria.indexOf(e), 0, {
           numeroProcesso,
-          maxPaginasMemoria,
+          paginasMemoria,
         });
         memoria.splice(memoria.indexOf(e), 1);
-        maxPaginasMemoria = 0;
+        paginasMemoria = 0;
       } else {
         let liberada = e.paginasMemoria;
         if (memoria.indexOf(e) - 1 >= 0) {
@@ -90,12 +90,12 @@ export function memoryPush({ numeroProcesso, maxPaginasMemoria }: any, memoria: 
           memoria.unshift({ numeroProcesso, paginasMemoria: liberada });
         }
         memoria.splice(memoria.indexOf(e), 1);
-        maxPaginasMemoria -= liberada;
+        paginasMemoria -= liberada;
       }
     }
 
     // Se todas as páginas de memória foram alocadas, sai do loop.
-    if (maxPaginasMemoria == 0) {
+    if (paginasMemoria == 0) {
       break;
     }
   }
