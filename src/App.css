@@ -1,7 +1,7 @@
 .btn-iniciar {
-  margin-top: 50px !important;
   background-color: #af5eff !important;
   color: white !important;
+  margin-top: 50px !important;
 
   &:disabled {
     background-color: gray !important;

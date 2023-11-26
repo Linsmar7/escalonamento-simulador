@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Switch,
   TextField,
   Typography,
@@ -140,8 +141,10 @@ function App() {
             <InputLabel>Algoritmo</InputLabel>
             <Select
               value={algoritmo}
-              // @ts-ignore
-              onChange={(e: any) => setAlgoritmo(TipoAlgoritmo[e.target.value])}
+              onChange={(e: SelectChangeEvent<TipoAlgoritmo>) => {
+                const tipo: TipoAlgoritmo = e.target.value as TipoAlgoritmo;
+                setAlgoritmo(tipo)
+              }}
               fullWidth
             >
               <MenuItem value="fifo">FIFO</MenuItem>
@@ -155,9 +158,11 @@ function App() {
       <div>
         {renderizarProcessos()}
       </div>
-      <Button disabled={btnDesativado} onClick={iniciar} className="btn-iniciar">
-        Iniciar
-      </Button>
+      <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+        <Button disabled={btnDesativado} onClick={iniciar} className="btn-iniciar">
+          Iniciar
+        </Button>
+      </div>
     </div>
   );
 }
