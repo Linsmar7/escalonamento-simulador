@@ -12,6 +12,7 @@ export interface Processo {
   tempoFinalizado: number;
   foraDoDeadline: boolean;
   intervalos: Intervalo[];
+  paginasMemoria?: number;
 }
 
 export interface Resultado {

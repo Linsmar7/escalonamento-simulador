@@ -25,13 +25,14 @@ export default function CartaoProcesso({
             label="Tempo de chegada"
             value={processo.tempoChegada}
             onChange={(e: any) => {
-              setProcessos((prev: Processo[]) => [
-                ...prev.filter((_, i) => i !== index),
-                {
-                  ...prev[index],
+              setProcessos((prev: Processo[]) => {
+                const prevProcessos = [...prev];
+                prevProcessos[index] = {
+                  ...prevProcessos[index],
                   tempoChegada: +e.target.value,
-                },
-              ]);
+                };
+                return prevProcessos;
+              });
             }}
           />
         </Grid>
@@ -41,13 +42,14 @@ export default function CartaoProcesso({
             label="Tempo de execução"
             value={processo.tempoExecucao}
             onChange={(e: any) => {
-              setProcessos((prev: Processo[]) => [
-                ...prev.filter((_, i) => i !== index),
-                {
-                  ...prev[index],
+              setProcessos((prev: Processo[]) => {
+                const prevProcessos = [...prev];
+                prevProcessos[index] = {
+                  ...prevProcessos[index],
                   tempoExecucao: +e.target.value,
-                },
-              ]);
+                };
+                return prevProcessos;
+              });
             }}
           />
         </Grid>
@@ -58,13 +60,14 @@ export default function CartaoProcesso({
               label="Deadline"
               value={processo.deadline}
               onChange={(e: any) => {
-                setProcessos((prev: Processo[]) => [
-                  ...prev.filter((_, i) => i !== index),
-                  {
-                    ...prev[index],
+                setProcessos((prev: Processo[]) => {
+                  const prevProcessos = [...prev];
+                  prevProcessos[index] = {
+                    ...prevProcessos[index],
                     deadline: +e.target.value,
-                  },
-                ]);
+                  };
+                  return prevProcessos;
+                });
               }}
             />
           </Grid>
@@ -74,13 +77,14 @@ export default function CartaoProcesso({
             type="number"
             label="Paginas Memoria"
             onChange={(e: any) => {
-              setProcessos((prev: Processo[]) => [
-                ...prev.filter((_, i) => i !== index),
-                {
-                  ...prev[index],
+              setProcessos((prev: Processo[]) => {
+                const prevProcessos = [...prev];
+                prevProcessos[index] = {
+                  ...prevProcessos[index],
                   paginasMemoria: +e.target.value,
-                },
-              ]);
+                };
+                return prevProcessos;
+              });
             }}
           />
         </Grid>

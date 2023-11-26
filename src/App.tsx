@@ -28,17 +28,10 @@ function App() {
   const [grafico, setGrafico] = useState(false);
   const [animado, setAnimado] = useState(false);
 
-  const inicializarMemoria = () => {
-    let memoria: any[] = [{ numeroProcesso: "Vazio", paginasMemoria: 50 }];
-    for (let i = 1; i <= 13; i++) {
-      memoria = memoryPush({ numeroProcesso: i, paginasMemoria: i <= 7 ? 10 : 5 }, memoria);
-    }
-    processos.forEach((e) => memoryPush(e, memoria));
-  };
+  let memoria: any[] = [{numeroProcesso: "Vazio", maxPaginasMemoria: 50}]
+  processos.map( e => memoryPush(e, memoria))
 
-  useEffect(() => {
-    inicializarMemoria();
-  }, []);
+  console.log(memoria)
 
   useEffect(() => {
     const botaoDesativado =
